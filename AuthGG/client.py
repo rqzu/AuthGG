@@ -1,6 +1,8 @@
 import requests
 import subprocess
 
+from .errors import error_handler
+
 class Client:
     def __init__(self, api_key, aid, application_secret):
         """
@@ -36,15 +38,15 @@ class Client:
         if response["result"] == "success":
             return True
         elif response["result"] == "invalid_details":
-            return "Invalid Details"
+            raise error_handler.InvalidPassword()
         elif response["result"] == "invalid_hwid":
-            return "Invalid HWID"
+            raise error_handler.InvalidHWID()
         elif response["result"] == "time_expired":
-            return "Subscription Expired"
+            raise error_handler.SubscriptionExpired()
         elif response["result"] == "hwid_updated":
-            return "HWID Updated"
+            return True
         else:
-            return "Error contacting Auth.GG"
+            raise error_handler.ErrorConnecting()
 
     def register(self, license_key: str, email:str, username: str, password: str):
         """
@@ -71,13 +73,13 @@ class Client:
         if response == "success":
             return True
         elif response == "invalid_license":
-            return "Invalid license"
+            raise error_handler.InvalidLicense()
         elif response == "email_used":
-            return "Email already used"
+            raise error_handler.UserError(message="email_used")
         elif response == "invalid_username":
-            return "Invalid Or taken username"                                    
+            raise error_handler.UserError(message="invalid_username")               
         else:
-            return "Error Contacting Auth.GG"            
+            raise error_handler.ErrorConnecting()         
 
     def forgotPassword(self, username: str):
         """
@@ -102,7 +104,7 @@ class Client:
         elif response == "failed":
             return f"{info}"
         else:
-            return "Error Contacting Auth.GG"   
+            raise error_handler.ErrorConnecting()
 
     def changePassword(self, username: str, password: str, newPassword: str):
         """
@@ -126,6 +128,6 @@ class Client:
         if response == "success":
             return True
         elif response == "invalid_details":
-            return "Invalid credentials"
+            raise error_handler.UserError(message="invalid_details")
         else:
-            return "Error Contacting Auth.GG"
+            raise error_handler.ErrorConnecting()
