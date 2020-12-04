@@ -15,12 +15,12 @@ client = Client(api_key="api_key", aid="aid", application_secret="secret")
 username = input("Username: ")
 password = input("Password: ")
 
-status = client.login(username, password)
-
-if status is True:
-	# continue
-else:
-	print(status)
+try:
+	client.login(username, password)
+	
+	# clear console and redirect
+except Exception as e:
+	print(e)
 ```
 
 ## Register a user example
@@ -35,12 +35,13 @@ license_key = input("License: ")
 username = input("Username: ")
 password = input("Password: ")
 
-status = client.register(email=email, username=username, password=password, license_key=license_key)
+try:
+	client.register(email=email, username=username, password=password, license_key=license_key)
 
-if status is True:
-	# continue
-else:
-	print(status)
+	# successfully registerd
+except Exception as e:
+	print(e)
+
 ```
 
 ## Forgot password example
@@ -54,12 +55,12 @@ client = Client(api_key="api_key", aid="aid", application_secret="secret")
 
 username = input("Username: ")
 
-status = client.forgotPassword(username)
+try:
+	client.forgotPassword(username)
 
-if status is True:
-	# continue
-else:
-	print(status)
+	# successfully sent
+except Exception as e:
+	print(e)
 ```
 
 ## Change password example
@@ -74,12 +75,13 @@ username = input("Username: ")
 password = input("Password: ")
 newPassword = input("New Password: ")
 
-status = client.changePassword(username=username, password=password, newPassword=newPassword)
+try:
+	client.changePassword(username=username, password=password, newPassword=newPassword)
 
-if status is True:
-	# continue
-else:
-	print(status)
+	# successfully changed password
+except Exception as e:
+	print(e)
+
 ```
 
 
@@ -102,12 +104,12 @@ from AuthGG.admin import AdminClient
 
 client = AdminClient("authorization_key")
 
-status = client.getUserCount()
+try:
+	status = client.getUserCount()
+	print(status)
+except Exception as e:
+	print(e)
 
-if status is True:
-	print(status) # Success
-else:
-	print(status) # Failed
 ```
 
 ## Delete users
@@ -119,12 +121,11 @@ client = AdminClient("authorization_key")
 
 username = input("Username: ")
 
-status = client.deleteUser(username)
-
-if status is True:
-	print(status) # Success
-else:
-	print(status) # Failed
+try:
+	status = client.deleteUser(username)
+	print(status)
+except Exception as e:
+	print(e)
 ```
 
 # Contribute
