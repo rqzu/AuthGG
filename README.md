@@ -1,5 +1,8 @@
 # AuthGG Wrapper
 # How to setup the client
+
+# Official [Pypi Website](https://pypi.org/project/AuthGG/)
+
 ```py
 from AuthGG.client import Client
 
