@@ -1,5 +1,7 @@
 import requests
 
+from .errors import error_handler
+
 class AdminClient:
     def __init__(self, auth_key: str):
         """ 
@@ -15,9 +17,9 @@ class AdminClient:
 
         r = requests.get(f"https://developers.auth.gg/USERS/?type=delete&authorization={self.authorization}&user={username}")             
         if r.json()['status'] == "success":
-            return True and "Successfully Deleted User"
+            return True
         else:
-            return False and "Failed Deleting User"
+            raise error_handler.FailedTask(message="Failed Deleting User!")
 
     def getUserCount(self):
         """
@@ -28,5 +30,5 @@ class AdminClient:
             jsonResponse = r.json()["value"]
             return True and jsonResponse
         else:
-            return False and "Error contacting Auth.GG"
+            raise error_handler.ErrorConnecting()
 
