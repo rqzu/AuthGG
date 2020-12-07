@@ -1,7 +1,7 @@
 import requests
 import subprocess
 
-from .errors import error_handler
+from AuthGG import error_handler
 
 class Client:
     def __init__(self, api_key, aid, application_secret):
@@ -18,6 +18,19 @@ class Client:
     def login(self, username: str, password: str):
         """
         Allow the user to login
+        ```
+        client = Client(api_key="api_key", aid="aid", application_secret="secret")
+
+        username = input("Username: ")
+        password = input("Password: ")
+
+        try:
+            client.login(username, password)
+            
+            # clear console and redirect
+        except Exception as e:
+            print(e)
+        ```
         """
 
         hwid = str(subprocess.check_output('wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()        
@@ -51,6 +64,23 @@ class Client:
     def register(self, license_key: str, email:str, username: str, password: str):
         """
         Easily register users
+        ```
+        from AuthGG.client import Client
+
+        client = Client(api_key="api_key", aid="aid", application_secret="secret")
+
+        email = input("Email: ")
+        license_key = input("License: ")
+        username = input("Username: ")
+        password = input("Password: ")
+
+        try:
+            client.register(email=email, username=username, password=password, license_key=license_key)
+
+            # successfully registerd
+        except Exception as e:
+            print(e)
+        ```
         """
 
         hwid = str(subprocess.check_output('wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()         
@@ -84,6 +114,20 @@ class Client:
     def forgotPassword(self, username: str):
         """
         Sends a reset password email to the given user
+        ```
+        from AuthGG.client import Client
+
+        client = Client(api_key="api_key", aid="aid", application_secret="secret")
+
+        username = input("Username: ")
+
+        try:
+            client.forgotPassword(username)
+
+            # successfully sent
+        except Exception as e:
+            print(e)        
+        ```
         """
 
         data = {
@@ -109,6 +153,22 @@ class Client:
     def changePassword(self, username: str, password: str, newPassword: str):
         """
         Changes the password for that user.
+        ```
+        from AuthGG.client import Client
+
+        client = Client(api_key="api_key", aid="aid", application_secret="secret")
+
+        username = input("Username: ")
+        password = input("Password: ")
+        newPassword = input("New Password: ")
+
+        try:
+            client.changePassword(username=username, password=password, newPassword=newPassword)
+
+            # successfully changed password
+        except Exception as e:
+            print(e)        
+        ```
         """
 
         data = {
