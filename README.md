@@ -97,6 +97,56 @@ from AuthGG.admin import AdminClient
 client = AdminClient("authorization_key")
 ```
 
+## Change users passwords
+
+Changes the provided users password
+
+```py
+from AuthGG.admin import AdminClient
+
+client = AdminClient("authorization_key")
+
+try:
+	client.changeUserPassword(username='razu', password='razu')        
+
+	# continue
+except Exception as e:
+	print(e)   
+```
+
+## Reset users HWID
+
+Resets the users HWID
+
+```py
+from AuthGG.admin import AdminClient
+
+client = AdminClient("authorization_key")
+
+try:
+	client.resetHWID(username='razu')        
+
+	# continue
+except Exception as e:
+	print(e)    
+```
+
+## Get HWID
+
+Returns the given users HWID
+
+```py
+from AuthGG.admin import AdminClient
+
+client = AdminClient("authorization_key")
+
+try:
+    client.getHWID(username='razu')
+
+    # continue
+except Exception as e:
+    print(e)
+```
 
 ## Get user count
 
@@ -112,7 +162,6 @@ try:
 	print(status)
 except Exception as e:
 	print(e)
-
 ```
 
 ## Delete users
@@ -129,6 +178,27 @@ try:
 	print(status)
 except Exception as e:
 	print(e)
+```
+
+# Logging
+
+STILL IN DEVELOPMENT
+
+## Save Log
+
+Saves a log in the Auth.GG Dashboard
+
+```py
+from AuthGG.logging import Logging
+
+client = Logging(aid='', apikey='', secret='')
+
+try:
+    client.sendData(username='razu', message='Deleted User')
+    
+    # continue
+except Exception as e:
+    print(e)
 ```
 
 # Contribute
